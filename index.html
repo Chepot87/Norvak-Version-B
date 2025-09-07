@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Responsive / Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Norvak — Web Design & Dev</title>
+  <meta name="description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
+  <meta name="theme-color" content="#f6e7d8" />
+
+  <!-- Favicon (mínimo necesario) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <!-- (Opcional) Web App -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Canonical -->
+  <!-- Reemplaza YOUR_SITE_URL por tu URL real (ej: https://chepot87.github.io/norvak-web/) -->
+  <link rel="canonical" href="https://YOUR_SITE_URL/">
+
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Norvak — Web Design & Dev">
+  <meta property="og:description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
+  <!-- Usa URL absoluta a tu imagen de preview -->
+  <meta property="og:image" content="https://YOUR_SITE_URL/img/og-cover.jpg">
+  <meta property="og:url" content="https://YOUR_SITE_URL/">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Norvak — Web Design & Dev">
+  <meta name="twitter:description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
+  <meta name="twitter:image" content="https://YOUR_SITE_URL/img/og-cover.jpg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ===== Nav ===== -->
+  <header class="nav">
+    <div class="container row">
+      <a href="#top" class="brand" aria-label="Norvak home">
+        <img src="img/Norvak.logo.b.png" alt="Norvak logo" class="logo">
+      </a>
+
+      <nav class="menu" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="cta cta--sm">Get a quote</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+    <div class="drawer" id="drawer" aria-label="Mobile menu">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Get a quote</a>
+    </div>
+  </header>
+
+<canvas id="matrix"></canvas>
+
+  
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="container hero__inner">
+      <div class="row hero__row">
+        <div>
+          <div class="kicker">Web Design & Development</div>
+          <h1>Modern, functional websites that load fast and feel good.</h1>
+          <p>We build responsive, accessible sites that focus on performance and clarity. Whether you’re launching a startup or refreshing your brand’s presence, we’ll partner with you to bring your vision to life.</p>
+          <div class="hero__actions">
+            <a class="cta" href="#contact">Start a project</a>
+            <a class="btn" href="#work">See recent work</a>
+          </div>
+        </div>
+        <aside class="card hero-card" aria-label="Highlights">
+          <div><b>What you get</b></div>
+          <ul class="hero-ul">
+            <li><span class="dot"></span><span>Responsive layouts for mobile, tablet, and desktop</span></li>
+            <li><span class="dot"></span><span>Performance-first builds (SEO-friendly, fast, and accessible)</span></li>
+            <li><span class="dot"></span><span>Clean, modern UI with warm, welcoming tones</span></li>
+            <li><span class="dot"></span><span>Real collaboration from kickoff to launch</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Services ===== -->
+  <section id="services" class="reveal">
+    <div class="container">
+      <div class="grid cols-3">
+        <article class="card tile">
+          <h3>Design</h3>
+          <p class="muted">Brand-aligned UI, color systems, and component-based layouts. We keep it clean, readable, and timeless.</p>
+        </article>
+        <article class="card tile">
+          <h3>Development</h3>
+          <p class="muted">Fast, accessible sites with semantic HTML, modern CSS, and progressive enhancement in JS.</p>
+        </article>
+        <article class="card tile">
+          <h3>Optimization</h3>
+          <p class="muted">Performance, SEO basics, and analytics so your site is easy to find and quick to load.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Work ===== -->
+  <section id="work" class="reveal">
+    <div class="container">
+      <div class="grid cols-2">
+
+        <!-- Country Pizza -->
+        <article class="card work-card">
+          <img class="work-shot" src="img/countrypizza.screenshot1.png" alt="Country Pizza project screenshot">
+          <div class="tile">
+            <h3>Country Pizza</h3>
+            <p class="muted">A 40+ year family business website refactor with faster load times, clean menu layout, and mobile-first UX.</p>
+            <div class="btn-line">
+              <a class="btn" href="https://chepot87.github.io/country-pizza/" target="_blank" rel="noreferrer noopener">Visit site</a>
+              <a class="btn" href="https://github.com/Chepot87/country-pizza" target="_blank" rel="noreferrer noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Lovely Dog Care -->
+        <article class="card work-card">
+          <img class="work-shot" src="img/ldg.screenshot1.png" alt="Lovely Dog Care project screenshot">
+          <div class="tile">
+            <h3>Lovely Dog Care</h3>
+            <p class="muted">Landing page for a dog grooming service, featuring a clean layout, pricing, testimonials, and a playful brand identity.</p>
+            <div class="btn-line">
+              <a class="btn" href="https://chepot87.github.io/LovelyDogCare/" target="_blank" rel="noreferrer noopener">Visit site</a>
+              <a class="btn" href="https://github.com/Chepot87/LovelyDogCare" target="_blank" rel="noreferrer noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Taquisimo -->
+        <article class="card work-card">
+          <img class="work-shot" src="img/taquisimo.screenshot1.png" alt="Taquisimo project screenshot">
+          <div class="tile">
+            <h3>Taquisimo</h3>
+            <p class="muted">Minimal landing page inspired by modern food branding, with smooth scrolling, responsive design, and SEO optimization.</p>
+            <div class="btn-line">
+              <a class="btn" href="https://chepot87.github.io/taquisimo/" target="_blank" rel="noreferrer noopener">Visit site</a>
+              <a class="btn" href="https://github.com/Chepot87/taquisimo" target="_blank" rel="noreferrer noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ICQA Tool -->
+        <article class="card work-card">
+          <img class="work-shot" src="img/icqa.screenshot1.png" alt="ICQA Tool project screenshot">
+          <div class="tile">
+            <h3>ICQA Tool</h3>
+            <p class="muted">A lightweight internal tool for auditing inventory locations with direct Excel export functionality, designed for efficiency and usability.</p>
+            <div class="btn-line">
+              <a class="btn" href="https://chepot87.github.io/ICQAtool/" target="_blank" rel="noreferrer noopener">Visit site</a>
+              <a class="btn" href="https://github.com/Chepot87/ICQAtool" target="_blank" rel="noreferrer noopener">View code</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about" class="reveal">
+    <div class="container grid cols-2">
+      <div>
+        <h2 class="hd-2">About Norvak</h2>
+        <p>At Norvak, we’re passionate about crafting modern, functional web experiences. Our team builds responsive, accessible sites that load quickly and drive results. Whether you’re launching a startup or refreshing your brand’s web presence, we’ll partner with you to bring your vision to life.</p>
+        <div class="about__links">
+          <a class="btn" href="https://github.com/Chepot87" target="_blank" rel="noreferrer noopener">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/jose-cortes-5615a9283/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+        </div>
+      </div>
+      <aside class="card tile">
+        <h3>Principles</h3>
+        <ul class="hero-ul">
+          <li><span class="dot"></span><span>Clarity over clutter</span></li>
+          <li><span class="dot"></span><span>Performance is part of design</span></li>
+          <li><span class="dot"></span><span>Accessible by default</span></li>
+          <li><span class="dot"></span><span>Ship, learn, iterate</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="reveal">
+    <div class="container">
+      <div class="grid cols-2">
+        <div class="card tile">
+          <h3>Start a project</h3>
+          <p class="muted">Tell us a bit about your idea. We’ll reply with next steps and a quick estimate.</p>
+          <form id="contactForm" action="https://formspree.io/f/your-id" method="POST">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" rows="5" placeholder="Project details" required></textarea>
+            <div class="btn-line">
+              <button class="btn primary" type="submit">Send message</button>
+              <button class="btn" type="reset">Clear</button>
+            </div>
+          </form>
+          <p id="formNote" class="muted form-note">Thanks! Your message was sent.</p>
+        </div>
+<div class="card tile info-card">
+  <h3>Info</h3>
+  <p class="muted">Prefer email? Reach out at <a href="mailto:cortes.jose.087@gmail.com">cortes.jose.087@gmail.com</a></p>
+  <p class="muted">Or DM via <a href="https://www.linkedin.com/in/jose-cortes-5615a9283/" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</p>
+  
+  <!-- Logo añadido dentro del card -->
+  <img src="img/Norvak.logo.b.png" alt="Norvak logo" class="info-logo">
+</div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer__row">
+      <div>© <span id="year"></span> Norvak. All rights reserved.</div>
+      <div class="muted">Built with semantic HTML, modern CSS, and a dash of JS.</div>
+    </div>
+  </footer>
+
+  <button id="toTop" aria-label="Back to top" title="Back to top" class="totop">↑</button>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+</body>
+</html>
