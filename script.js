@@ -111,3 +111,33 @@ window.addEventListener("resize", () => {
   canvas.height = window.innerHeight;
   canvas.width = window.innerWidth;
 });
+
+
+
+(function(){
+  const KEY = 'norvak_intro_seen';
+  const intro = document.querySelector('.intro-overlay');
+
+  // Si ya se vio esta sesión, no mostrar
+  if (sessionStorage.getItem(KEY)) {
+    intro.remove();
+    return;
+  }
+
+  // Mostrar
+  document.body.classList.add('no-scroll');
+  requestAnimationFrame(() => intro.classList.add('show'));
+
+  // Duración total del intro (ajusta si quieres)
+  const DURATION = 2000; // ms
+
+  setTimeout(() => {
+    intro.classList.add('hide');
+    sessionStorage.setItem(KEY, '1');
+    // limpiar al terminar la transición
+    intro.addEventListener('transitionend', () => {
+      intro.remove();
+    }, { once:true });
+    document.body.classList.remove('no-scroll');
+  }, DURATION);
+})();

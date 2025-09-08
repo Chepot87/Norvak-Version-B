@@ -48,7 +48,7 @@ a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-under
   width: 100%; height: 100%;
   z-index: -1;
   background: #0d0d0d;
-  opacity: 0.15;        /* más sutil */
+  opacity: 0.35;        /* aqui es donde controlamos el background matrix */
   pointer-events: none;
 }
 
@@ -176,6 +176,109 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
   pointer-events: none;
 }
 
+/* ========== SERVICES (upgraded cards) ========== */
+.svc-head { text-align:center; margin-bottom: clamp(24px, 5vw, 36px); }
+.svc-sub { color: var(--muted); margin-top: 6px; }
+
+.svc-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+@media (max-width: 1020px){ .svc-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px){ .svc-grid{ grid-template-columns: 1fr; } }
+
+.svc-card{
+  position: relative;
+  padding: 26px 22px 22px;
+  background: color-mix(in srgb, #0e0e0e 88%, #151515 12%);
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+  isolation: isolate;
+}
+
+/* gradient “inked” top border */
+.svc-topline{
+  position: absolute; inset: 0 0 auto 0; height: 3px;
+  pointer-events: none; opacity: .9;
+  background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 30%, rgba(34,185,255,0) 70%, var(--accent) 100%);
+  border-radius: 18px 18px 0 0;
+}
+
+/* corner glow accents */
+.svc-card::before,
+.svc-card::after{
+  content:"";
+  position:absolute;
+  width:140px; height:140px; border-radius: 50%;
+  filter: blur(24px);
+  opacity:.10; z-index:-1;
+  transition: opacity .25s ease, transform .25s ease;
+}
+.svc-card::before{ top:-40px; right:-40px; background: var(--accent); }
+.svc-card::after{ bottom:-46px; left:-46px; background: var(--brand-2); }
+
+/* icon chip */
+/* ===== Service Card Icon (solid style) ===== */
+.svc-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  background: var(--brand); /* color sólido principal */
+  box-shadow: 0 6px 14px rgba(255,47,146,.35); /* match estilo CTA */
+  border: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 14px;
+  transition: transform .18s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.svc-card:hover .svc-icon {
+  transform: scale(1.05);
+  background: var(--accent); /* cambia a otro color de tu paleta al hover */
+  box-shadow: 0 8px 20px rgba(34,185,255,.35);
+}
+
+
+/* headings & copy */
+.svc-card h3{ margin: 0 0 8px; font-size: 22px; }
+.svc-card p{ margin: 0 0 12px; color: var(--muted); }
+
+/* list with subtle ticks */
+.svc-list{
+  list-style: none; margin: 0; padding: 0;
+  display:grid; gap: 8px;
+}
+.svc-list li{
+  position: relative; padding-left: 18px;
+}
+.svc-list li::before{
+  content:""; position:absolute; left:0; top: 9px;
+  width: 8px; height: 8px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  box-shadow: 0 0 0 2px rgba(255,255,255,.06);
+}
+
+/* hover delight */
+.svc-card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(255,47,146,.22);
+  background: color-mix(in srgb, #0f0f0f 82%, #171717 18%);
+  box-shadow: 0 18px 44px rgba(0,0,0,.55);
+}
+.svc-card:hover::before,
+.svc-card:hover::after{
+  opacity:.18; transform: scale(1.06);
+}
+
+
 /* spacing inside */
 .tile { padding: 28px; }
 .hero-card { padding: 28px; display:grid; gap:14px; }
@@ -272,4 +375,94 @@ footer { padding: 34px 0; border-top: 1px solid var(--stroke); color: var(--mute
   .tile, .hero-card, .info-card { padding: 20px; }
   .info-card { padding-bottom: 76px; }
   .info-card .info-logo { height: 52px; bottom: 14px; right: 14px; }
+}
+
+
+
+/* ===== Intro / Splash ===== */
+body.no-scroll { overflow: hidden; }
+
+.intro-overlay{
+  position: fixed; inset: 0; z-index: 9999;
+  display: grid; place-items: center;
+  background:
+    radial-gradient(900px 320px at 110% -10%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent 60%),
+    radial-gradient(1000px 360px at -10% -10%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 60%),
+    var(--bg);
+  border-bottom: 1px solid var(--stroke);
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s ease;
+}
+
+.intro-overlay.show{
+  opacity: 1; pointer-events: auto;
+}
+
+.intro-wrap{
+  position: relative;
+  text-align: center;
+  padding: 34px 28px;
+  background: color-mix(in srgb, #0e0e0e 86%, #161616 14%);
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+/* gradient edge */
+.intro-wrap::before{
+  content:"";
+  position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 30%, rgba(34,185,255,0) 70%, var(--accent) 100%);
+  border-radius: 22px 22px 0 0;
+  opacity: .85;
+}
+
+/* corner glows */
+.intro-wrap::after{
+  content:"";
+  position:absolute; width:180px; height:180px; border-radius:50%;
+  bottom:-60px; right:-60px; filter: blur(28px);
+  background: var(--accent); opacity:.14; z-index:-1;
+}
+
+.intro-logo{
+  width: clamp(90px, 14vw, 140px); height: auto; display: block;
+  margin: 0 auto 10px;
+  transform: scale(.92);
+  animation: logoPop .7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+
+.intro-welcome{
+  margin: 8px 0 4px; font-size: clamp(22px, 4.8vw, 34px);
+  font-weight: 900; color: var(--ink);
+  letter-spacing: .02em;
+  opacity: 0; transform: translateY(6px);
+  animation: fadeUp .6s .25s ease forwards;
+}
+
+.intro-tag{
+  margin: 0; color: var(--muted);
+  font-size: clamp(14px, 2.6vw, 16px);
+  opacity: 0; transform: translateY(6px);
+  animation: fadeUp .6s .45s ease forwards;
+}
+
+/* exit */
+.intro-overlay.hide{
+  opacity: 0; transition: opacity .6s ease;
+}
+
+/* animations */
+@keyframes logoPop{
+  to{ transform: scale(1); filter: drop-shadow(0 8px 24px rgba(0,0,0,.45)); }
+}
+@keyframes fadeUp{
+  to{ opacity:1; transform:none; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .intro-logo, .intro-welcome, .intro-tag{ animation: none; opacity: 1; transform: none; }
+  .intro-overlay, .intro-overlay.hide{ transition: none; }
 }

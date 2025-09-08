@@ -102,24 +102,57 @@
   </section>
 
   <!-- ===== Services ===== -->
-  <section id="services" class="reveal">
-    <div class="container">
-      <div class="grid cols-3">
-        <article class="card tile">
-          <h3>Design</h3>
-          <p class="muted">Brand-aligned UI, color systems, and component-based layouts. We keep it clean, readable, and timeless.</p>
-        </article>
-        <article class="card tile">
-          <h3>Development</h3>
-          <p class="muted">Fast, accessible sites with semantic HTML, modern CSS, and progressive enhancement in JS.</p>
-        </article>
-        <article class="card tile">
-          <h3>Optimization</h3>
-          <p class="muted">Performance, SEO basics, and analytics so your site is easy to find and quick to load.</p>
-        </article>
-      </div>
+ <section id="services" class="section">
+  <div class="container">
+    <div class="svc-head">
+      <span class="kicker">What we do</span>
+      <h2 class="hd-2">Design • Development • Optimization</h2>
+      <p class="svc-sub">Clean builds, modern UI, and measurable performance.</p>
     </div>
-  </section>
+
+    <div class="svc-grid">
+      <!-- Card 1 -->
+      <article class="svc-card">
+        <div class="svc-topline"></div>
+        <div class="svc-icon" aria-hidden="true">★</div>
+        <h3>Design</h3>
+        <p>Brand-aligned UI, color systems, and component layouts. Clean, readable, and timeless.</p>
+        <ul class="svc-list">
+          <li>Design systems & tokens</li>
+          <li>Responsive components</li>
+          <li>Micro-interactions</li>
+        </ul>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="svc-card">
+        <div class="svc-topline"></div>
+        <div class="svc-icon" aria-hidden="true">{"}</div>
+        <h3>Development</h3>
+        <p>Fast, accessible sites with semantic HTML, modern CSS, and progressive enhancement in JS.</p>
+        <ul class="svc-list">
+          <li>Mobile-first builds</li>
+          <li>Accessibility baked-in</li>
+          <li>Best-practice structure</li>
+        </ul>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="svc-card">
+        <div class="svc-topline"></div>
+        <div class="svc-icon" aria-hidden="true">⚡</div>
+        <h3>Optimization</h3>
+        <p>Performance, SEO basics, and analytics so your site is easy to find and quick to load.</p>
+        <ul class="svc-list">
+          <li>Core Web Vitals tuning</li>
+          <li>SEO meta & OG cards</li>
+          <li>GA4 ready</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
 
   <!-- ===== Work ===== -->
   <section id="work" class="reveal">
@@ -248,4 +281,16 @@
   <!-- Scripts -->
   <script src="script.js" defer></script>
 </body>
+
+<!-- ===== Intro / Splash ===== -->
+<div class="intro-overlay" aria-hidden="true">
+  <div class="intro-wrap">
+    <!-- Cambia la ruta del logo si hace falta -->
+    <img class="intro-logo" src="img/Norvak.logo.b.png" alt="" />
+
+    <h2 class="intro-welcome">Welcome</h2>
+    <p class="intro-tag">Building Modern Web Experiences</p>
+  </div>
+</div>
+
 </html>
