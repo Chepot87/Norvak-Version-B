@@ -5,7 +5,7 @@ This version of the site focuses on clarity, strong design systems, and a develo
 
 ---
 ## Live Site  
-[https://chepot87.github.io/norvak-web/](https://chepot87.github.io/Norvak-Version-B/#work)
+[https://chepot87.github.io/norvak-web/](https://chepot87.github.io/Norvak-Version-B)
 
 ---
 
