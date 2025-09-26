@@ -60,6 +60,91 @@ form?.addEventListener('submit', async (e) => {
 });
 
 
+// ===== Calendly control (robusto) =====
+(() => {
+  const calendlyLinks = {
+    web: "https://calendly.com/norvakweb/web-page-design",
+    seo: "https://calendly.com/norvakweb/seo-optimization",
+    support: "https://calendly.com/norvakweb/support-maintenance",
+    consult: "https://calendly.com/norvakweb/consultation-call"
+  };
+
+  function onCalendlyReady(cb) {
+    if (window.Calendly && typeof Calendly.initInlineWidgets === "function") {
+      cb();
+    } else {
+      const t = setInterval(() => {
+        if (window.Calendly && typeof Calendly.initInlineWidgets === "function") {
+          clearInterval(t);
+          cb();
+        }
+      }, 100);
+    }
+  }
+
+  function mountCalendly(url) {
+    const container = document.getElementById("calendlyContainer");
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="calendly-inline-widget" data-url="${url}"
+           style="min-width:320px;height:700px;"></div>
+    `;
+
+    // Inicializa Calendly cuando esté listo
+    onCalendlyReady(() => {
+      Calendly.initInlineWidgets();
+
+      // fallback: si no aparece el iframe en 3s, mostramos mensaje + link
+      setTimeout(() => {
+        const iframe = container.querySelector("iframe");
+        if (!iframe) {
+          container.innerHTML = `
+            <div style="padding:1rem; border:1px solid #16e078; border-radius:12px;">
+              <p style="margin:0 0 .5rem 0">Couldn’t load Calendly embed.</p>
+              <p style="margin:0">Check that this event exists and is public:</p>
+              <p style="margin:.5rem 0 0 0">
+                <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>
+              </p>
+            </div>
+          `;
+          console.warn("Calendly iframe not found. Verify the event URL:", url);
+        }
+      }, 3000);
+    });
+  }
+
+  function showCalendly(service, btnEl) {
+    const url = calendlyLinks[service];
+    if (!url) return;
+    mountCalendly(url);
+
+    // estado visual
+    document.querySelectorAll(".service-buttons .svc-btn").forEach(b => {
+      b.classList.remove("is-active");
+      b.setAttribute("aria-selected", "false");
+    });
+    if (btnEl) {
+      btnEl.classList.add("is-active");
+      btnEl.setAttribute("aria-selected", "true");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    mountCalendly(calendlyLinks.web);
+    const firstTab = document.getElementById("tab-web") ||
+                     document.querySelector(".service-buttons .svc-btn");
+    if (firstTab) {
+      firstTab.classList.add("is-active");
+      firstTab.setAttribute("aria-selected", "true");
+    }
+  });
+
+  // necesario porque usas onclick="showCalendly('...')"
+  window.showCalendly = showCalendly;
+})();
+
+
 
 
 

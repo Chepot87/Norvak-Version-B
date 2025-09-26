@@ -9,7 +9,7 @@
   <meta name="description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
   <meta name="theme-color" content="#0d0d0d" />
 
-  <!-- Favicons (using your logo) -->
+  <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="32x32" href="img/Norvak.logo.b.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/Norvak.logo.b.png">
   <link rel="shortcut icon" href="img/Norvak.logo.b.png">
@@ -23,7 +23,7 @@
   <meta property="og:url" content="https://chepot87.github.io/Norvak-Version-B/">
   <meta property="og:title" content="Norvak — Web Design & Dev">
   <meta property="og:description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
-  <meta property="og:image" content="https://chepot87.github.io/Norvak-Version-B/img/og-cover.jpg">
+  <meta property="og:image" content="https://chepot87.github.io/Norvak-Version-B/img/og-cover.jpg?v=2">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
@@ -31,7 +31,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Norvak — Web Design & Dev">
   <meta name="twitter:description" content="Norvak builds modern, functional web experiences that are fast, accessible, and results-driven.">
-  <meta name="twitter:image" content="https://chepot87.github.io/Norvak-Version-B/img/og-cover.jpg">
+  <meta name="twitter:image" content="https://chepot87.github.io/Norvak-Version-B/img/og-cover.jpg?v=2">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,9 +42,16 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 
-
-
 <body>
+  <!-- ===== Intro / Splash ===== -->
+  <div class="intro-overlay" aria-hidden="true">
+    <div class="intro-wrap">
+      <img class="intro-logo" src="img/Norvak.logo.b.png" alt="Norvak logo">
+      <h2 class="intro-welcome">Welcome</h2>
+      <p class="intro-tag">Building Modern Web Experiences</p>
+    </div>
+  </div>
+
   <!-- ===== Nav ===== -->
   <header class="nav">
     <div class="container row">
@@ -68,9 +75,7 @@
     </div>
   </header>
 
-<canvas id="matrix"></canvas>
-
-  
+  <canvas id="matrix"></canvas>
 
   <!-- ===== Hero ===== -->
   <section class="hero" id="top">
@@ -99,64 +104,58 @@
   </section>
 
   <!-- ===== Services ===== -->
- <section id="services" class="section">
-  <div class="container">
-    <div class="svc-head">
-      <span class="kicker">What we do</span>
-      <h2 class="hd-2">Design • Development • Optimization</h2>
-      <p class="svc-sub">Clean builds, modern UI, and measurable performance.</p>
+  <section id="services" class="section">
+    <div class="container">
+      <div class="svc-head">
+        <span class="kicker">What we do</span>
+        <h2 class="hd-2">Design • Development • Optimization</h2>
+        <p class="svc-sub">Clean builds, modern UI, and measurable performance.</p>
+      </div>
+
+      <div class="svc-grid">
+        <article class="svc-card">
+          <div class="svc-topline"></div>
+          <div class="svc-icon" aria-hidden="true">★</div>
+          <h3>Design</h3>
+          <p>Brand-aligned UI, color systems, and component layouts. Clean, readable, and timeless.</p>
+          <ul class="svc-list">
+            <li>Design systems & tokens</li>
+            <li>Responsive components</li>
+            <li>Micro-interactions</li>
+          </ul>
+        </article>
+
+        <article class="svc-card">
+          <div class="svc-topline"></div>
+          <div class="svc-icon" aria-hidden="true">&lt;/&gt;</div>
+          <h3>Development</h3>
+          <p>Fast, accessible sites with semantic HTML, modern CSS, and progressive enhancement in JS.</p>
+          <ul class="svc-list">
+            <li>Mobile-first builds</li>
+            <li>Accessibility baked-in</li>
+            <li>Best-practice structure</li>
+          </ul>
+        </article>
+
+        <article class="svc-card">
+          <div class="svc-topline"></div>
+          <div class="svc-icon" aria-hidden="true">⚡</div>
+          <h3>Optimization</h3>
+          <p>Performance, SEO basics, and analytics so your site is easy to find and quick to load.</p>
+          <ul class="svc-list">
+            <li>Core Web Vitals tuning</li>
+            <li>SEO meta & OG cards</li>
+            <li>GA4 ready</li>
+          </ul>
+        </article>
+      </div>
     </div>
-
-    <div class="svc-grid">
-      <!-- Card 1 -->
-      <article class="svc-card">
-        <div class="svc-topline"></div>
-        <div class="svc-icon" aria-hidden="true">★</div>
-        <h3>Design</h3>
-        <p>Brand-aligned UI, color systems, and component layouts. Clean, readable, and timeless.</p>
-        <ul class="svc-list">
-          <li>Design systems & tokens</li>
-          <li>Responsive components</li>
-          <li>Micro-interactions</li>
-        </ul>
-      </article>
-
-      <!-- Card 2 -->
-      <article class="svc-card">
-        <div class="svc-topline"></div>
-        <div class="svc-icon" aria-hidden="true">{"}</div>
-        <h3>Development</h3>
-        <p>Fast, accessible sites with semantic HTML, modern CSS, and progressive enhancement in JS.</p>
-        <ul class="svc-list">
-          <li>Mobile-first builds</li>
-          <li>Accessibility baked-in</li>
-          <li>Best-practice structure</li>
-        </ul>
-      </article>
-
-      <!-- Card 3 -->
-      <article class="svc-card">
-        <div class="svc-topline"></div>
-        <div class="svc-icon" aria-hidden="true">⚡</div>
-        <h3>Optimization</h3>
-        <p>Performance, SEO basics, and analytics so your site is easy to find and quick to load.</p>
-        <ul class="svc-list">
-          <li>Core Web Vitals tuning</li>
-          <li>SEO meta & OG cards</li>
-          <li>GA4 ready</li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
+  </section>
 
   <!-- ===== Work ===== -->
   <section id="work" class="reveal">
     <div class="container">
       <div class="grid cols-2">
-
-        <!-- Country Pizza -->
         <article class="card work-card">
           <img class="work-shot" src="img/countrypizza.screenshot1.png" alt="Country Pizza project screenshot">
           <div class="tile">
@@ -169,7 +168,6 @@
           </div>
         </article>
 
-        <!-- Lovely Dog Care -->
         <article class="card work-card">
           <img class="work-shot" src="img/ldg.screenshot1.png" alt="Lovely Dog Care project screenshot">
           <div class="tile">
@@ -182,7 +180,6 @@
           </div>
         </article>
 
-        <!-- Taquisimo -->
         <article class="card work-card">
           <img class="work-shot" src="img/taquisimo.screenshot1.png" alt="Taquisimo project screenshot">
           <div class="tile">
@@ -195,7 +192,6 @@
           </div>
         </article>
 
-        <!-- ICQA Tool -->
         <article class="card work-card">
           <img class="work-shot" src="img/icqa.screenshot1.png" alt="ICQA Tool project screenshot">
           <div class="tile">
@@ -207,7 +203,6 @@
             </div>
           </div>
         </article>
-
       </div>
     </div>
   </section>
@@ -236,58 +231,73 @@
   </section>
 
   <!-- ===== Contact ===== -->
-  <section id="contact" class="reveal">
+  <section id="contact" class="section reveal">
     <div class="container">
-      <div class="grid cols-2">
-        <div class="card tile">
+      <div class="contact-grid">
+        <!-- LEFT: form card -->
+        <article class="card tile card--form">
           <h3>Start a project</h3>
           <p class="muted">Tell us a bit about your idea. We’ll reply with next steps and a quick estimate.</p>
+
           <form id="contactForm" action="https://formspree.io/f/your-id" method="POST">
             <input type="text" name="name" placeholder="Your name" required>
             <input type="email" name="email" placeholder="Email" required>
             <textarea name="message" rows="5" placeholder="Project details" required></textarea>
+
             <div class="btn-line">
               <button class="btn primary" type="submit">Send message</button>
               <button class="btn" type="reset">Clear</button>
             </div>
           </form>
-          <p id="formNote" class="muted form-note">Thanks! Your message was sent.</p>
-        </div>
-<div class="card tile info-card">
-  <h3>Info</h3>
-  <p class="muted">Prefer email? Reach out at <a href="mailto:norvakweb@gmail.com">cortes.jose.087@gmail.com</a></p>
-  <p class="muted">Or DM via <a href="https://www.linkedin.com/in/jose-cortes-5615a9283/" target="_blank" rel="noreferrer noopener">LinkedIn</a>.</p>
-  
-  <!-- Logo añadido dentro del card -->
-  <img src="img/Norvak.logo.b.png" alt="Norvak logo" class="info-logo">
+
+          <p id="formNote" class="muted form-note" aria-live="polite">Thanks! Your message was sent.</p>
+        </article>
+
+        <!-- MIDDLE: Calendly scheduler -->
+        <article class="card tile card--scheduler">
+          <h3>Book a Service</h3>
+          <p class="muted">Choose a time that works best for you.</p>
+
+         <div
+  class="calendly-inline-widget"
+  data-url="https://calendly.com/norvakweb/web-page-design?primary_color=ff2f86&text_color=ffffff&background_color=0d0d0d&hide_gdpr_banner=1"
+  style="min-width:320px;height:700px;">
 </div>
 
+        </article>
+
+        <!-- RIGHT: Info card -->
+        <article class="card tile info-card">
+          <h3>Info</h3>
+          <p class="muted">
+            Prefer email? Reach out at
+            <a href="mailto:norvakweb@gmail.com">norvakweb@gmail.com</a>
+          </p>
+          <p class="muted">
+            Or DM via
+            <a href="https://www.linkedin.com/in/jose-cortes-5615a9283/" target="_blank" rel="noreferrer noopener">LinkedIn</a>.
+          </p>
+          <img src="img/Norvak.logo.b.png" alt="Norvak logo" class="info-logo">
+        </article>
       </div>
     </div>
   </section>
 
+  <!-- ===== Footer ===== -->
   <footer>
     <div class="container footer__row">
       <div>© <span id="year"></span> Norvak. All rights reserved.</div>
-      <div class="muted">Built with semantic HTML, modern CSS, and a dash of JS.</div>
+      <div class="muted">©Norvak Web Dev.</div>
     </div>
   </footer>
 
   <button id="toTop" aria-label="Back to top" title="Back to top" class="totop">↑</button>
 
-  <!-- Scripts -->
+  <!-- ===== Scripts ===== -->
   <script src="script.js" defer></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
-
-<!-- ===== Intro / Splash ===== -->
-<div class="intro-overlay" aria-hidden="true">
-  <div class="intro-wrap">
-    <!-- Cambia la ruta del logo si hace falta -->
-    <img class="intro-logo" src="img/Norvak.logo.b.png" alt="" />
-
-    <h2 class="intro-welcome">Welcome</h2>
-    <p class="intro-tag">Building Modern Web Experiences</p>
-  </div>
-</div>
-
 </html>

@@ -466,3 +466,156 @@ body.no-scroll { overflow: hidden; }
   .intro-logo, .intro-welcome, .intro-tag{ animation: none; opacity: 1; transform: none; }
   .intro-overlay, .intro-overlay.hide{ transition: none; }
 }
+
+/* Contact layout */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  align-items: start;          /* <- keeps both cards aligned at top */
+}
+@media (max-width: 960px){
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+/* make cards behave nicely inside the grid */
+.card--form,
+.card--cal{
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ===== Calendly height + frame (add at end) ===== */
+:root { --cal-h: 680px; }                 /* desktop default */
+
+.card--cal .calendly-inline-widget{
+  min-width: 320px;
+  height: var(--cal-h);                   /* controls iframe height */
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  background: #0d0d0d;
+}
+
+/* round the inner iframe edges (Calendly injects it) */
+.calendly-inline-widget iframe {
+  border-radius: 18px !important;
+}
+
+/* Slightly taller on medium screens */
+@media (max-width: 1200px){
+  :root { --cal-h: 740px; }
+}
+
+/* Tallest on mobile (UI stacks more) */
+@media (max-width: 720px){
+  :root { --cal-h: 920px; }
+}
+
+
+/* Container */
+#book-appointment {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #0d0d0d; /* fondo dark */
+  color: #fff;
+}
+
+/* Title */
+#book-appointment h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #16e078; /* acento Norvak */
+}
+
+/* Buttons container */
+.service-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Buttons */
+.service-buttons button {
+  background: #1a1a1a;
+  color: #fff;
+  border: 2px solid #16e078;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover + active effect */
+.service-buttons button:hover {
+  background: #16e078;
+  color: #0d0d0d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 224, 120, 0.4);
+}
+
+.service-buttons button:active {
+  transform: scale(0.95);
+}
+
+/* Calendly container */
+#calendlyContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.service-buttons .svc-btn.is-active {
+  background: #16e078;
+  color: #0d0d0d;
+  border-color: #16e078;
+}
+
+#calendlyContainer { min-height: 720px; }
+#calendlyContainer .calendly-inline-widget { height: 700px !important; }
+
+
+/* Grid de contacto: 3 columnas iguales */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;          /* espacio entre cards */
+  align-items: start;   /* todos arriba */
+}
+
+/* Info card limpio */
+.info-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Logo dentro del info card */
+.info-card .info-logo {
+  max-width: 150px;   /* controla tamaño */
+  max-height: 150px;
+  margin-top: 1rem;   /* espacio debajo del texto */
+  align-self: flex-end; /* manda el logo a la esquina derecha */
+}
+
+/* Header logo: respeta proporción, nada de oval */
+.logo{
+  height: 40px;      /* ajusta si lo quieres más grande */
+  width: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  border-radius: 0 !important;   /* por si hay un img {border-radius} global */
+  display: block;
+}
+
+/* Evita estirones por el contenedor */
+.brand{ display:inline-flex; align-items:center; }
+
