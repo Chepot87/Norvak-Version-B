@@ -1,6 +1,5 @@
 /* =======================================================
-   Norvak Theme (Logo Palette) — styles.css
-   Matches your current index.html (navbar + hero + sections)
+   Norvak Theme — CLEAN, LINTER-FRIENDLY styles.css
    ======================================================= */
 
 /* ------------------ 1) THEME TOKENS ------------------ */
@@ -17,14 +16,18 @@
   --ring: rgba(34,185,255,.35);
   --shadow: 0 14px 38px rgba(0,0,0,.55);
 
-  --radius: 16px;
+  --radius: 18px;
   --gap: clamp(16px, 2.5vw, 28px);
   --maxw: 1160px;
+
+  /* Calendly height */
+  --cal-h: 680px;
 }
 
 /* ------------------ 2) GLOBAL / BASE ------------------ */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; touch-action: pan-y; }
 ::selection { background: rgba(255,47,146,.35); color:#fff; }
 
 body {
@@ -41,58 +44,61 @@ body {
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; }
 
-/* Matrix canvas background — subtle */
+img, video, canvas { max-width: 100%; height: auto; display: block; }
+
+/* Matrix canvas background — behind everything */
 #matrix {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  background: #0d0d0d;
-  opacity: 0.25;        /* aqui es donde controlamos el background matrix */
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: -1;
+  background: #0d0d0d; opacity: 0.25; pointer-events: none;
 }
 
 /* ------------------ 3) LAYOUT HELPERS ------------------ */
-.container { width: min(var(--maxw), 92%); margin-inline: auto; }
+.container { width: min(var(--maxw), 100% - 2rem); margin-inline: auto; }
 section { padding: clamp(56px, 9vw, 100px) 0; }
 .row { display: flex; align-items: center; justify-content: space-between; }
+.grid { display:grid; gap: var(--gap); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px){ .cols-3, .cols-2 { grid-template-columns: 1fr; } }
 
 /* ------------------ 4) HEADER / NAV ------------------ */
 .nav {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: 1000;
   backdrop-filter: blur(8px);
-  background: color-mix(in srgb, #0d0d0d 82%, #1a1a1a 18%);
+  background: rgba(16,16,16,.92);
   border-bottom: 1px solid var(--stroke);
 }
 .nav .row { padding: 14px 0; }
 
-.logo { height: 80px; width: auto; display: block; }
-
-.menu { display: flex; align-items: center; gap: 6px; }
-.nav a {
-  color: var(--ink);
-  padding: 10px 12px;
-  border-radius: 10px;
-  font-weight: 600;
+/* ONE logo rule (fixes oval) */
+.logo{
+  height: 80px;               /* adjust size here */
+  width: auto !important;     /* never stretch */
+  object-fit: contain;
+  border-radius: 0 !important;
+  display: block;
 }
+.brand{ display:inline-flex; align-items:center; }
+
+.menu { display:flex; align-items:center; gap: 6px; }
+.nav a { color: var(--ink); padding: 10px 12px; border-radius: 10px; font-weight: 600; }
 .nav a:hover { background: rgba(34,185,255,.10); outline: 1px solid rgba(34,185,255,.20); }
 
 .burger {
-  display: none;
-  width: 40px; height: 40px; border-radius: 12px;
+  display: none; width: 40px; height: 40px; border-radius: 12px;
   border: 1px solid var(--stroke); background: #141414; color: var(--ink);
   cursor: pointer;
 }
 
 .drawer { display: none; }
-
 @media (max-width: 820px){
   .menu{ display:none; }
   .burger{ display:grid; place-items:center; }
   .drawer{
-    position: fixed; inset: 60px 16px auto 16px;
+    position: fixed; left: 16px; right: 16px; top: 60px;
     background:#101010; border:1px solid var(--stroke);
-    border-radius:16px; box-shadow: var(--shadow); padding:12px;
+    border-radius:16px; box-shadow: var(--shadow); padding:12px; z-index:999;
+    max-height: calc(100vh - 80px); overflow:auto;
   }
   .drawer a{ display:block; padding: 12px; border-radius: 10px; }
   .drawer a + a{ margin-top:4px; }
@@ -104,37 +110,28 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
 /* ------------------ 5) HERO ------------------ */
 .hero { padding: clamp(56px, 10vw, 130px) 0; }
 .hero__row {
-  display:grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: var(--gap);
-  align-items: center;
+  display:grid; grid-template-columns: 1.2fr 1fr;
+  gap: var(--gap); align-items: center;
 }
 @media (max-width: 900px){ .hero__row { grid-template-columns: 1fr; } }
 
 .kicker {
-  color: var(--brand-2);
-  font-weight: 800;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  font-size: .85rem;
+  color: var(--brand-2); font-weight: 800;
+  letter-spacing:.18em; text-transform:uppercase; font-size: .85rem;
 }
 .hero h1 {
   font-family: "Playfair Display", serif;
   font-size: clamp(36px, 6vw, 54px);
-  line-height: 1.08;
-  margin: 8px 0 12px;
+  line-height: 1.08; margin: 8px 0 12px;
 }
 .hero p { font-size: clamp(16px, 2vw, 18px); color: var(--muted); max-width: 62ch; }
-
 .hero__actions { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
 
 /* ------------------ 6) BUTTONS ------------------ */
 .cta {
   display:inline-flex; align-items:center; gap:10px;
   padding: 12px 18px; border-radius: 12px;
-  background: var(--brand);
-  color:#fff; font-weight:800;
-  border: none;
+  background: var(--brand); color:#fff; font-weight:800; border: none;
   box-shadow: 0 8px 20px rgba(255,47,146,.35);
   transition: transform .15s ease, box-shadow .2s ease;
 }
@@ -144,8 +141,7 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
 .btn {
   padding: 12px 16px; border-radius: 12px;
   border: 2px solid var(--brand);
-  background: transparent;
-  color: var(--brand);
+  background: transparent; color: var(--brand);
   font-weight:700; cursor:pointer; text-decoration:none;
   transition: all .2s ease;
 }
@@ -154,10 +150,10 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
 
 /* ------------------ 7) CARDS ------------------ */
 .card {
-  position: relative;
+  position: relative; overflow: hidden;
   background: rgba(26,26,26,.9);
   border: 1px solid rgba(255,255,255,.08);
-  border-radius: 18px;
+  border-radius: var(--radius);
   box-shadow: 0 8px 20px rgba(0,0,0,.45);
   backdrop-filter: blur(6px);
   transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
@@ -169,29 +165,24 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
 }
 .card::before {
   content: "";
-  position: absolute; inset: 0 0 auto 0; height: 3px;
-  border-radius: 18px 18px 0 0;
+  position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
   background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 28%, rgba(34,185,255,0) 72%, var(--accent) 100%);
-  opacity: .18;
-  pointer-events: none;
+  opacity: .18; pointer-events: none;
 }
 
-/* ========== SERVICES (upgraded cards) ========== */
+/* ========== SERVICES ========== */
 .svc-head { text-align:center; margin-bottom: clamp(24px, 5vw, 36px); }
 .svc-sub { color: var(--muted); margin-top: 6px; }
 
-.svc-grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap);
-}
+.svc-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap); }
 @media (max-width: 1020px){ .svc-grid{ grid-template-columns: 1fr 1fr; } }
 @media (max-width: 720px){ .svc-grid{ grid-template-columns: 1fr; } }
 
 .svc-card{
   position: relative;
   padding: 26px 22px 22px;
-  background: color-mix(in srgb, #0e0e0e 88%, #151515 12%);
+  background: #111;
   border: 1px solid var(--stroke);
   border-radius: 18px;
   box-shadow: var(--shadow);
@@ -200,506 +191,195 @@ section { padding: clamp(56px, 9vw, 100px) 0; }
   transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
   isolation: isolate;
 }
-
-/* gradient “inked” top border */
 .svc-topline{
-  position: absolute; inset: 0 0 auto 0; height: 3px;
+  position: absolute; left:0; right:0; top:0; height: 3px;
   pointer-events: none; opacity: .9;
   background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 30%, rgba(34,185,255,0) 70%, var(--accent) 100%);
   border-radius: 18px 18px 0 0;
 }
-
-/* corner glow accents */
-.svc-card::before,
-.svc-card::after{
-  content:"";
-  position:absolute;
-  width:140px; height:140px; border-radius: 50%;
-  filter: blur(24px);
-  opacity:.10; z-index:-1;
-  transition: opacity .25s ease, transform .25s ease;
+.svc-card::before, .svc-card::after{
+  content:""; position:absolute; width:140px; height:140px; border-radius:50%;
+  filter: blur(24px); opacity:.10; z-index:-1; transition: opacity .25s ease, transform .25s ease;
 }
 .svc-card::before{ top:-40px; right:-40px; background: var(--accent); }
 .svc-card::after{ bottom:-46px; left:-46px; background: var(--brand-2); }
 
-/* icon chip */
-/* ===== Service Card Icon (solid style) ===== */
 .svc-icon {
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  font-weight: 900;
-  font-size: 20px;
-  color: #fff;
-  background: var(--brand); /* color sólido principal */
-  box-shadow: 0 6px 14px rgba(255,47,146,.35); /* match estilo CTA */
-  border: 1px solid rgba(255,255,255,.08);
-  margin-bottom: 14px;
-  transition: transform .18s ease, box-shadow .2s ease, background .2s ease;
+  width: 48px; height: 48px; display: grid; place-items: center;
+  border-radius: 12px; font-weight: 900; font-size: 20px; color: #fff;
+  background: var(--brand); border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 6px 14px rgba(255,47,146,.35);
+  margin-bottom: 14px; transition: transform .18s ease, box-shadow .2s ease, background .2s ease;
 }
+.svc-card:hover .svc-icon { transform: scale(1.05); background: var(--accent); box-shadow: 0 8px 20px rgba(34,185,255,.35); }
 
-.svc-card:hover .svc-icon {
-  transform: scale(1.05);
-  background: var(--accent); /* cambia a otro color de tu paleta al hover */
-  box-shadow: 0 8px 20px rgba(34,185,255,.35);
-}
-
-
-/* headings & copy */
 .svc-card h3{ margin: 0 0 8px; font-size: 22px; }
 .svc-card p{ margin: 0 0 12px; color: var(--muted); }
-
-/* list with subtle ticks */
-.svc-list{
-  list-style: none; margin: 0; padding: 0;
-  display:grid; gap: 8px;
-}
-.svc-list li{
-  position: relative; padding-left: 18px;
-}
+.svc-list{ list-style: none; margin: 0; padding: 0; display:grid; gap: 8px; }
+.svc-list li{ position: relative; padding-left: 18px; }
 .svc-list li::before{
-  content:""; position:absolute; left:0; top: 9px;
-  width: 8px; height: 8px; border-radius: 999px;
+  content:""; position:absolute; left:0; top: 9px; width: 8px; height: 8px; border-radius: 999px;
   background: linear-gradient(90deg, var(--brand), var(--brand-2));
   box-shadow: 0 0 0 2px rgba(255,255,255,.06);
 }
-
-/* hover delight */
 .svc-card:hover{
   transform: translateY(-4px);
   border-color: rgba(255,47,146,.22);
-  background: color-mix(in srgb, #0f0f0f 82%, #171717 18%);
+  background: #111;
   box-shadow: 0 18px 44px rgba(0,0,0,.55);
 }
-.svc-card:hover::before,
-.svc-card:hover::after{
-  opacity:.18; transform: scale(1.06);
-}
+.svc-card:hover::before, .svc-card:hover::after{ opacity:.18; transform: scale(1.06); }
 
-
-/* spacing inside */
 .tile { padding: 28px; }
 .hero-card { padding: 28px; display:grid; gap:14px; }
 .tile h3 { margin: 0 0 14px; font-size: 20px; font-weight: 800; color: #fff; }
 .tile p { margin: 10px 0; }
 
-/* ------------------ 8) GRID / SECTIONS ------------------ */
-.grid { display:grid; gap: var(--gap); }
-.cols-3 { grid-template-columns: repeat(3, 1fr); }
-.cols-2 { grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 900px){
-  .cols-3, .cols-2 { grid-template-columns: 1fr; }
-}
-
-/* ------------------ 9) WORK ------------------ */
+/* ------------------ 8) WORK ------------------ */
 .work-card { overflow:hidden; }
 .work-shot {
-  aspect-ratio: 16/10;
-  width:100%;
-  object-fit:cover;
+  aspect-ratio: 16/10; width:100%; object-fit:cover;
   border-bottom:1px solid var(--stroke);
   border-radius: 18px 18px 0 0;
   box-shadow: 0 6px 20px rgba(0,0,0,.45);
   transition: transform .25s ease, box-shadow .25s ease;
 }
-.work-card:hover .work-shot {
-  transform: scale(1.015);
-  box-shadow: 0 12px 28px rgba(0,0,0,.55);
-}
+.work-card:hover .work-shot { transform: scale(1.015); box-shadow: 0 12px 28px rgba(0,0,0,.55); }
 
-/* ------------------ 10) ABOUT ------------------ */
+/* ------------------ 9) ABOUT ------------------ */
 .hd-2 {
   font-family:"Playfair Display", serif;
   font-size: clamp(26px, 4.2vw, 36px);
-  line-height:1.15;
-  margin:0 0 10px;
+  line-height:1.15; margin:0 0 10px;
 }
 .about__links { margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
 
-/* ------------------ 11) CONTACT ------------------ */
+/* ------------------ 10) CONTACT ------------------ */
 form { display:grid; gap:14px; }
 input, textarea {
-  width:100%;
-  padding: 14px 16px;
-  border-radius: 12px;
+  width:100%; padding: 14px 16px; border-radius: 12px;
   border:1.5px solid rgba(255,255,255,.08);
-  background:#0f0f0f;
-  color: var(--ink);
-  font: inherit;
-  outline: none;
+  background:#0f0f0f; color: var(--ink); font: inherit; outline: none;
   transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
 }
 input::placeholder, textarea::placeholder { color: #9a9a9a; }
 input:hover, textarea:hover { border-color: rgba(255,255,255,.16); }
-input:focus, textarea:focus {
-  border-color: var(--brand);
-  box-shadow: 0 0 0 3px rgba(255,47,146,.18);
-  background: #111;
-}
+input:focus, textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(255,47,146,.18); background: #111; }
 .btn-line { gap: 14px; margin-top: 8px; }
 
-/* info card logo */
-.info-card { position: relative; overflow: hidden; padding: 28px; padding-bottom: 96px; }
-.info-card .info-logo {
+/* Contact grid */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap);
+  align-items: start;
+}
+@media (max-width: 1000px){ .contact-grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+/* Info card logo — keep proportions on all screens */
+.info-card { position: relative; padding: 28px; padding-bottom: 96px; }
+.info-card .info-logo{
   position: absolute;
-  bottom: 20px; right: 20px;
-  height: 180px;
+  bottom: 20px;
+  right: 20px;
+
+  /* control size with width only */
+  width: clamp(80px, 22%, 140px);
+  height: auto !important;      /* kill any old fixed heights */
+  aspect-ratio: auto;
+
   opacity: .9;
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.55));
   transition: transform .2s ease, opacity .2s ease;
 }
+@media (max-width: 520px){
+  .info-card .info-logo{
+    width: clamp(70px, 28%, 110px);
+    height: auto !important;
+  }
+}
 .info-card:hover .info-logo { transform: scale(1.03); opacity: 1; }
 
-/* ------------------ 12) FOOTER ------------------ */
+/* Calendly widget fits card and never causes sideways scroll */
+.card--scheduler .calendly-inline-widget{
+  width: 100% !important;
+  min-width: 0 !important;
+  height: var(--cal-h);
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--stroke);
+  background: #0d0d0d;
+}
+.calendly-inline-widget iframe { border-radius: var(--radius) !important; }
+
+/* ------------------ 11) FOOTER ------------------ */
 footer { padding: 34px 0; border-top: 1px solid var(--stroke); color: var(--muted); font-size: .95rem; }
 .footer__row { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
 
-/* ------------------ 13) REVEAL / UTILS ------------------ */
+/* ------------------ 12) REVEAL / UTILS ------------------ */
 .reveal { opacity:0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
 .reveal.show { opacity:1; transform: none; }
-
 .totop {
-  position:fixed; right:16px; bottom:16px;
-  display:none; padding:10px 12px;
+  position:fixed; right:16px; bottom:16px; display:none; padding:10px 12px;
   border-radius:12px; border:1px solid var(--stroke);
-  background:#141414; color:#fff; box-shadow: var(--shadow);
-  cursor:pointer;
+  background:#141414; color:#fff; box-shadow: var(--shadow); cursor:pointer;
 }
 .totop:hover { border-color: rgba(255,47,146,.35); }
 
-/* ------------------ 14) RESPONSIVE ------------------ */
+/* ------------------ 13) INTRO / SPLASH ------------------ */
+body.no-scroll { overflow: hidden; }
+.intro-overlay{
+  position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center;
+  background:
+    radial-gradient(900px 320px at 110% -10%, rgba(47,255,107,.14), transparent 60%),
+    radial-gradient(1000px 360px at -10% -10%, rgba(255,47,146,.12), transparent 60%),
+    var(--bg);
+  border-bottom: 1px solid var(--stroke);
+  opacity: 0; pointer-events: none; transition: opacity .5s ease;
+}
+.intro-overlay.show{ opacity: 1; pointer-events: auto; }
+.intro-wrap{
+  position: relative; text-align: center; padding: 34px 28px;
+  background: #121212; border: 1px solid var(--stroke);
+  border-radius: 22px; box-shadow: var(--shadow); isolation: isolate;
+}
+.intro-wrap::before{
+  content:""; position: absolute; left:0; right:0; top:0; height: 3px;
+  background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 30%, rgba(34,185,255,0) 70%, var(--accent) 100%);
+  border-radius: 22px 22px 0 0; opacity: .85;
+}
+.intro-wrap::after{
+  content:""; position:absolute; width:180px; height:180px; border-radius:50%;
+  bottom:-60px; right:-60px; filter: blur(28px); background: var(--accent); opacity:.14; z-index:-1;
+}
+.intro-logo{
+  width: clamp(90px, 14vw, 140px); height: auto; margin: 0 auto 10px;
+  transform: scale(.92); animation: logoPop .7s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.intro-welcome{
+  margin: 8px 0 4px; font-size: clamp(22px, 4.8vw, 34px);
+  font-weight: 900; color: var(--ink); letter-spacing: .02em;
+  opacity: 0; transform: translateY(6px); animation: fadeUp .6s .25s ease forwards;
+}
+.intro-tag{
+  margin: 0; color: var(--muted); font-size: clamp(14px, 2.6vw, 16px);
+  opacity: 0; transform: translateY(6px); animation: fadeUp .6s .45s ease forwards;
+}
+.intro-overlay.hide{ opacity: 0; transition: opacity .6s ease; }
+@keyframes logoPop{ to{ transform: scale(1); filter: drop-shadow(0 8px 24px rgba(0,0,0,.45)); } }
+@keyframes fadeUp{ to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){
+  .intro-logo, .intro-welcome, .intro-tag{ animation:none; opacity:1; transform:none; }
+  .intro-overlay, .intro-overlay.hide{ transition:none; }
+}
+
+/* ------------------ 14) RESPONSIVE TWEAKS ------------------ */
+@media (max-width: 1200px){ :root { --cal-h: 740px; } }
+@media (max-width: 720px){ :root { --cal-h: 920px; } }
+
 @media (max-width: 520px){
   .logo{ height: 56px; }
   .tile, .hero-card, .info-card { padding: 20px; }
   .info-card { padding-bottom: 76px; }
-  .info-card .info-logo { height: 52px; bottom: 14px; right: 14px; }
 }
-
-
-
-/* ===== Intro / Splash ===== */
-body.no-scroll { overflow: hidden; }
-
-.intro-overlay{
-  position: fixed; inset: 0; z-index: 9999;
-  display: grid; place-items: center;
-  background:
-    radial-gradient(900px 320px at 110% -10%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent 60%),
-    radial-gradient(1000px 360px at -10% -10%, color-mix(in srgb, var(--brand) 16%, transparent), transparent 60%),
-    var(--bg);
-  border-bottom: 1px solid var(--stroke);
-  opacity: 0; pointer-events: none;
-  transition: opacity .5s ease;
-}
-
-.intro-overlay.show{
-  opacity: 1; pointer-events: auto;
-}
-
-.intro-wrap{
-  position: relative;
-  text-align: center;
-  padding: 34px 28px;
-  background: color-mix(in srgb, #0e0e0e 86%, #161616 14%);
-  border: 1px solid var(--stroke);
-  border-radius: 22px;
-  box-shadow: var(--shadow);
-  isolation: isolate;
-}
-
-/* gradient edge */
-.intro-wrap::before{
-  content:"";
-  position: absolute; inset: 0 0 auto 0; height: 3px;
-  background: linear-gradient(90deg, var(--brand) 0%, rgba(255,47,146,0) 30%, rgba(34,185,255,0) 70%, var(--accent) 100%);
-  border-radius: 22px 22px 0 0;
-  opacity: .85;
-}
-
-/* corner glows */
-.intro-wrap::after{
-  content:"";
-  position:absolute; width:180px; height:180px; border-radius:50%;
-  bottom:-60px; right:-60px; filter: blur(28px);
-  background: var(--accent); opacity:.14; z-index:-1;
-}
-
-.intro-logo{
-  width: clamp(90px, 14vw, 140px); height: auto; display: block;
-  margin: 0 auto 10px;
-  transform: scale(.92);
-  animation: logoPop .7s cubic-bezier(.2,.7,.2,1) forwards;
-}
-
-.intro-welcome{
-  margin: 8px 0 4px; font-size: clamp(22px, 4.8vw, 34px);
-  font-weight: 900; color: var(--ink);
-  letter-spacing: .02em;
-  opacity: 0; transform: translateY(6px);
-  animation: fadeUp .6s .25s ease forwards;
-}
-
-.intro-tag{
-  margin: 0; color: var(--muted);
-  font-size: clamp(14px, 2.6vw, 16px);
-  opacity: 0; transform: translateY(6px);
-  animation: fadeUp .6s .45s ease forwards;
-}
-
-/* exit */
-.intro-overlay.hide{
-  opacity: 0; transition: opacity .6s ease;
-}
-
-/* animations */
-@keyframes logoPop{
-  to{ transform: scale(1); filter: drop-shadow(0 8px 24px rgba(0,0,0,.45)); }
-}
-@keyframes fadeUp{
-  to{ opacity:1; transform:none; }
-}
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce){
-  .intro-logo, .intro-welcome, .intro-tag{ animation: none; opacity: 1; transform: none; }
-  .intro-overlay, .intro-overlay.hide{ transition: none; }
-}
-
-/* Contact layout */
-.contact-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--gap);
-  align-items: start;          /* <- keeps both cards aligned at top */
-}
-@media (max-width: 960px){
-  .contact-grid{ grid-template-columns: 1fr; }
-}
-
-/* make cards behave nicely inside the grid */
-.card--form,
-.card--cal{
-  display: flex;
-  flex-direction: column;
-}
-
-
-/* ===== Calendly height + frame (add at end) ===== */
-:root { --cal-h: 680px; }                 /* desktop default */
-
-.card--cal .calendly-inline-widget{
-  min-width: 320px;
-  height: var(--cal-h);                   /* controls iframe height */
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid var(--stroke);
-  background: #0d0d0d;
-}
-
-/* round the inner iframe edges (Calendly injects it) */
-.calendly-inline-widget iframe {
-  border-radius: 18px !important;
-}
-
-/* Slightly taller on medium screens */
-@media (max-width: 1200px){
-  :root { --cal-h: 740px; }
-}
-
-/* Tallest on mobile (UI stacks more) */
-@media (max-width: 720px){
-  :root { --cal-h: 920px; }
-}
-
-
-/* Container */
-#book-appointment {
-  text-align: center;
-  padding: 3rem 1rem;
-  background: #0d0d0d; /* fondo dark */
-  color: #fff;
-}
-
-/* Title */
-#book-appointment h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  color: #16e078; /* acento Norvak */
-}
-
-/* Buttons container */
-.service-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* Buttons */
-.service-buttons button {
-  background: #1a1a1a;
-  color: #fff;
-  border: 2px solid #16e078;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Hover + active effect */
-.service-buttons button:hover {
-  background: #16e078;
-  color: #0d0d0d;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(22, 224, 120, 0.4);
-}
-
-.service-buttons button:active {
-  transform: scale(0.95);
-}
-
-/* Calendly container */
-#calendlyContainer {
-  max-width: 900px;
-  margin: 0 auto;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-}
-
-.service-buttons .svc-btn.is-active {
-  background: #16e078;
-  color: #0d0d0d;
-  border-color: #16e078;
-}
-
-#calendlyContainer { min-height: 720px; }
-#calendlyContainer .calendly-inline-widget { height: 700px !important; }
-
-
-/* Grid de contacto: 3 columnas iguales */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.5rem;          /* espacio entre cards */
-  align-items: start;   /* todos arriba */
-}
-
-/* Info card limpio */
-.info-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Logo dentro del info card */
-.info-card .info-logo {
-  max-width: 150px;   /* controla tamaño */
-  max-height: 150px;
-  margin-top: 1rem;   /* espacio debajo del texto */
-  align-self: flex-end; /* manda el logo a la esquina derecha */
-}
-
-/* Header logo: respeta proporción, nada de oval */
-.logo{
-  height: 40px;      /* ajusta si lo quieres más grande */
-  width: auto;
-  aspect-ratio: auto;
-  object-fit: contain;
-  border-radius: 0 !important;   /* por si hay un img {border-radius} global */
-  display: block;
-}
-
-/* Evita estirones por el contenedor */
-.brand{ display:inline-flex; align-items:center; }
-
-/* ===== Mobile layout patch (Norvak-VB) ===== */
-
-/* 0) Never allow sideways scroll caused by 100vw elements */
-html, body { overflow-x: hidden; }
-
-/* 1) Header stays put and sits above everything */
-.nav{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(13,13,13,.85);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
-
-/* Burger drawer sits under header, not over content */
-.drawer{
-  position: fixed;
-  top: 64px;                   /* adjust to your header height */
-  right: 16px;
-  width: min(90vw, 320px);
-  max-height: calc(100dvh - 80px);
-  overflow: auto;
-  z-index: 999;
-}
-
-/* 2) Background matrix should never cover UI */
-#matrix{
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* 3) Containers size safely (no 100vw overflow) */
-.container{
-  width: min(1100px, 100% - 2rem);  /* gutters on small screens */
-  margin-inline: auto;
-}
-
-/* 4) Contact grid: no clipping and clean stacking */
-.contact-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.25rem;
-  align-items: start;           /* cards align from the top */
-}
-
-.card.tile{
-  overflow: hidden;             /* prevent inner bleed at rounded corners */
-  border-radius: 16px;
-}
-
-/* Right info card image never overlaps text */
-.info-card{ display:flex; flex-direction:column; justify-content:space-between; }
-.info-card .info-logo{ max-width:120px; margin-top:1rem; align-self:flex-end; }
-
-/* Calendly widget fills the card without pushing layout sideways */
-.card--scheduler .calendly-inline-widget{ width:100%; display:block; }
-
-/* 5) Mobile breakpoints */
-@media (max-width: 1000px){
-  .contact-grid{ grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 900px){
-  .grid.cols-2{ grid-template-columns: 1fr; }
-  .contact-grid{ grid-template-columns: 1fr; }
-}
-
-/* 6) Prevent any generic img rules from stretching the brand logo */
-.logo{
-  height: 48px;
-  width: auto !important;
-  object-fit: contain;
-  border-radius: 0 !important;
-  display: block;
-}
-
-/* 7) Optional: shorten Calendly on small phones to avoid inner scroll hell */
-@media (max-width: 600px){
-  .card--scheduler .calendly-inline-widget{ height: 560px !important; }
-}
-
-
