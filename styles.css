@@ -619,3 +619,87 @@ body.no-scroll { overflow: hidden; }
 /* Evita estirones por el contenedor */
 .brand{ display:inline-flex; align-items:center; }
 
+/* ===== Mobile layout patch (Norvak-VB) ===== */
+
+/* 0) Never allow sideways scroll caused by 100vw elements */
+html, body { overflow-x: hidden; }
+
+/* 1) Header stays put and sits above everything */
+.nav{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(13,13,13,.85);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+/* Burger drawer sits under header, not over content */
+.drawer{
+  position: fixed;
+  top: 64px;                   /* adjust to your header height */
+  right: 16px;
+  width: min(90vw, 320px);
+  max-height: calc(100dvh - 80px);
+  overflow: auto;
+  z-index: 999;
+}
+
+/* 2) Background matrix should never cover UI */
+#matrix{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 3) Containers size safely (no 100vw overflow) */
+.container{
+  width: min(1100px, 100% - 2rem);  /* gutters on small screens */
+  margin-inline: auto;
+}
+
+/* 4) Contact grid: no clipping and clean stacking */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  align-items: start;           /* cards align from the top */
+}
+
+.card.tile{
+  overflow: hidden;             /* prevent inner bleed at rounded corners */
+  border-radius: 16px;
+}
+
+/* Right info card image never overlaps text */
+.info-card{ display:flex; flex-direction:column; justify-content:space-between; }
+.info-card .info-logo{ max-width:120px; margin-top:1rem; align-self:flex-end; }
+
+/* Calendly widget fills the card without pushing layout sideways */
+.card--scheduler .calendly-inline-widget{ width:100%; display:block; }
+
+/* 5) Mobile breakpoints */
+@media (max-width: 1000px){
+  .contact-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px){
+  .grid.cols-2{ grid-template-columns: 1fr; }
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+/* 6) Prevent any generic img rules from stretching the brand logo */
+.logo{
+  height: 48px;
+  width: auto !important;
+  object-fit: contain;
+  border-radius: 0 !important;
+  display: block;
+}
+
+/* 7) Optional: shorten Calendly on small phones to avoid inner scroll hell */
+@media (max-width: 600px){
+  .card--scheduler .calendly-inline-widget{ height: 560px !important; }
+}
+
+
